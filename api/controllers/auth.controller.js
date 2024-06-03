@@ -1,15 +1,18 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/ErrorHandler.js";
-import catchAsyncError from "../middleware/catchAsynsError.js";
+import catchAsyncErrors from "../middleware/catchAsynsError.js";
+import sendToken from "../utils/jwtToken.js";
 
 export const signup = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { fullName, username, email, password } = req.body;
 
   if (
+    !fullName ||
     !username ||
     !email ||
     !password ||
+    fullName === "" ||
     username === "" ||
     email === "" ||
     password === ""
@@ -22,6 +25,7 @@ export const signup = async (req, res, next) => {
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
   const newUser = new User({
+    fullName,
     username,
     email,
     password: hashedPassword,
@@ -37,3 +41,29 @@ export const signup = async (req, res, next) => {
     next(error);
   }
 };
+
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const validUser = await User.findOne({ email }).select("+password");
+    if (!validUser) return next(errorHandler(404, "User not found!"));
+    const validPassword = await bcryptjs.compare(password, validUser.password);
+    if (!validPassword) return next(errorHandler(401, "Wrong credentials!"));
+    sendToken(validUser, 200, res);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getuser = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return next(errorHandler(404, "User doesn't exists"));
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    next(error.message);
+  }
+});

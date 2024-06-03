@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema(
   {
@@ -9,38 +7,58 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    email: {
+    fullName: {
       type: String,
       required: true,
-      unique: true,
     },
     password: {
       type: String,
       required: true,
       select: false,
     },
-    profilePicture: {
+    email: {
       type: String,
-      default:
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+      required: true,
+      unique: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    followers: [
+      {
+        type: Object,
+        default: [],
+      },
+    ],
+    following: [
+      {
+        type: Object,
+        default: [],
+      },
+    ],
+    profileImg: {
+      type: String,
+      default: "",
     },
+    coverImg: {
+      type: String,
+      default: "",
+    },
+    bio: {
+      type: String,
+      default: "",
+    },
+
+    link: {
+      type: String,
+      default: "",
+    },
+    likedPosts: [
+      {
+        type: Object,
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
-
-userSchema.methods.getJwtToken = function () {
-  return jwt.sign(
-    { id: this._id, isAdmin: this.isAdmin },
-    process.env.JWT_SECRET_KEY,
-    {
-      expiresIn: process.env.JWT_EXPIRES,
-    }
-  );
-};
 
 const User = mongoose.model("User", userSchema);
 export default User;

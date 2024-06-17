@@ -59,9 +59,30 @@ export const deletePost = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-export const getAllPosts = catchAsyncErrors(async (req, res, next) => {});
+export const getAllPosts = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const posts = await Post.find()
+      .sort({ createdAt: -1 })
+      .populate({
+        path: "user",
+      })
+      .populate({
+        path: "comments.user",
+      });
+    if (!posts.length) return next(errorHandler(404, "No post found!"));
+
+    res.status(200).json({
+      success: true,
+      posts,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+export const getLikedPosts = catchAsyncErrors(async (req, res, next) => {
+  
+});
 export const getFollowingPosts = catchAsyncErrors(async (req, res, next) => {});
-export const getLikedPosts = catchAsyncErrors(async (req, res, next) => {});
 export const getUserPosts = catchAsyncErrors(async (req, res, next) => {});
 export const likeUnlikePost = catchAsyncErrors(async (req, res, next) => {
   try {
@@ -73,11 +94,20 @@ export const likeUnlikePost = catchAsyncErrors(async (req, res, next) => {
         { _id: req.params.postid },
         { $pull: { likes: req.user.id } }
       );
+      await User.updateOne(
+        { _id: req.user.id },
+        { $pull: { likedPosts: req.params.postid } }
+      );
+
       res.status(200).json({
         message: "Post unliked successfully!",
       });
     } else {
       post.likes.push(req.user.id);
+      await User.updateOne(
+        { _id: req.user.id },
+        { $push: { likedPosts: req.params.postid } }
+      );
       await post.save();
 
       const notification = new Notification({

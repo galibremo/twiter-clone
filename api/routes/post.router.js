@@ -17,7 +17,7 @@ router.post("/create", isAuthenticated, createPost);
 router.delete("/delete/:id", isAuthenticated, deletePost);
 router.get("/getposts", isAuthenticated, getAllPosts);
 router.get("/following", isAuthenticated, getFollowingPosts);
-router.get("/likes/:id", isAuthenticated, getLikedPosts);
+router.get("/likes/:userid", isAuthenticated, getLikedPosts);
 router.get("/user/:username", isAuthenticated, getUserPosts);
 router.post("/like/:postid", isAuthenticated, likeUnlikePost);
 router.post("/comment/:postid", isAuthenticated, commentOnPost);

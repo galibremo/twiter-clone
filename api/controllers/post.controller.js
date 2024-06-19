@@ -80,10 +80,61 @@ export const getAllPosts = catchAsyncErrors(async (req, res, next) => {
   }
 });
 export const getLikedPosts = catchAsyncErrors(async (req, res, next) => {
-  
+  try {
+    const user = await User.findById(req.params.userid);
+    if (!user) return next(errorHandler(404, "user not found!"));
+
+    const likedPosts = await Post.find({ _id: { $in: user.likedPosts } })
+      .populate({
+        path: "user",
+      })
+      .populate({
+        path: "comments.user",
+      });
+
+    res.status(200).json({ success: true, likedPosts });
+  } catch (error) {
+    next(error);
+  }
 });
-export const getFollowingPosts = catchAsyncErrors(async (req, res, next) => {});
-export const getUserPosts = catchAsyncErrors(async (req, res, next) => {});
+export const getFollowingPosts = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return next(errorHandler(404, "user not found!"));
+
+    const feedPosts = await Post.find({ user: { $in: user.following } })
+      .sort({ createdAt: -1 })
+      .populate({
+        path: "user",
+      })
+      .populate({
+        path: "comments.user",
+      });
+
+    res.status(200).json({ success: true, feedPosts });
+  } catch (error) {
+    next(error);
+  }
+});
+export const getUserPosts = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) return next(errorHandler(404, "user not found!"));
+    const posts = await Post.find({ user: user._id })
+      .sort({
+        createdAt: -1,
+      })
+      .populate({
+        path: "user",
+      })
+      .populate({
+        path: "comments.user",
+      });
+    res.status(200).json({ success: true, posts });
+  } catch (error) {
+    next(error);
+  }
+});
 export const likeUnlikePost = catchAsyncErrors(async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.postid);

@@ -5,6 +5,7 @@ import authRouter from "./routes/auth.router.js";
 import userRouter from "./routes/user.router.js";
 import errorHandler from "./middleware/error.js";
 import postRouter from "./routes/post.router.js";
+import notificationRouter from "./routes/notification.router.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
+app.use("/api/notifications", notificationRouter);
 
 app.use(errorHandler);
 export default app;

@@ -5,19 +5,19 @@ import catchAsyncErrors from "../middleware/catchAsynsError.js";
 import sendToken from "../utils/jwtToken.js";
 
 export const signup = async (req, res, next) => {
-  const { fullName, username, email, password } = req.body;
+  const { fullname, username, email, password } = req.body;
 
   if (
-    !fullName ||
+    !fullname ||
     !username ||
     !email ||
     !password ||
-    fullName === "" ||
+    fullname === "" ||
     username === "" ||
     email === "" ||
     password === ""
   ) {
-    next(errorHandler(400, "All fields are required"));
+    return next(errorHandler(400, "All fields are required"));
   }
   const userEmail = await User.findOne({ email });
   if (userEmail) return next(errorHandler(404, "User already exists"));
@@ -25,7 +25,7 @@ export const signup = async (req, res, next) => {
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
   const newUser = new User({
-    fullName,
+    fullname,
     username,
     email,
     password: hashedPassword,
@@ -44,6 +44,9 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
+  if (!email || !password || email === "" || password === "") {
+    return next(errorHandler(400, "All fields are required"));
+  }
   try {
     const validUser = await User.findOne({ email }).select("+password");
     if (!validUser) return next(errorHandler(404, "User not found!"));

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import XSvg from "../../../public/X";
 import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineMail } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
-import { MdDriveFileRenameOutline } from "react-icons/md";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { store } from "../../redux/store";
+import { loadUser } from "../../redux/actions/userAction";
 
 export default function SignIn() {
   const [loading, setLoading] = useState(false);
@@ -25,6 +25,7 @@ export default function SignIn() {
       });
       setLoading(false);
       if (data.success === true) {
+        store.dispatch(loadUser());
         toast.success("Login successfull!");
         navigate("/");
       }

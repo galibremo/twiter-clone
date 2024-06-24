@@ -43,72 +43,70 @@ export default function SignUp() {
   };
 
   return (
-    <div className="bg-black text-white">
-      <div className="max-w-7xl mx-auto flex h-screen items-center justify-center gap-16">
-        <div className="hidden lg:flex items-center justify-center">
-          <XSvg className="w-full fill-white" />
+    <div className="max-w-7xl mx-auto flex h-screen items-center justify-center gap-16">
+      <div className="hidden lg:flex items-center justify-center">
+        <XSvg className="w-full fill-white" />
+      </div>
+      <div className="flex flex-col gap-3">
+        <div className="flex lg:hidden items-center justify-center">
+          <XSvg className="w-24 fill-white" />
         </div>
-        <div className="flex flex-col gap-3">
-          <div className="flex lg:hidden items-center justify-center">
-            <XSvg className="w-24 fill-white" />
+        <h1 className="text-3xl font-bold">join today.</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
+          <div className="relative flex items-center">
+            <MdOutlineMail className="absolute left-1" />
+            <input
+              className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
+              type="email"
+              id="email"
+              placeholder="Email"
+              onChange={handleChange}
+            />
           </div>
-          <h1 className="text-3xl font-bold">join today.</h1>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
-            <div className="relative flex items-center">
-              <MdOutlineMail className="absolute left-1" />
-              <input
-                className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
-                type="email"
-                id="email"
-                placeholder="Email"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="relative flex items-center">
-              <FaUser className="absolute left-1" />
-              <input
-                className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
-                type="text"
-                id="username"
-                placeholder="Username"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="relative flex items-center">
-              <MdDriveFileRenameOutline className="absolute left-1" />
-              <input
-                className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
-                type="text"
-                id="fullname"
-                placeholder="Fullname"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="relative flex items-center">
-              <MdPassword className="absolute left-1" />
-              <input
-                className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
-                type="password"
-                id="password"
-                placeholder="Password"
-                onChange={handleChange}
-              />
-            </div>
+          <div className="relative flex items-center">
+            <FaUser className="absolute left-1" />
             <input
-              className="py-2 rounded-full w-[280px] bg-blue-600 cursor-pointer"
-              type="submit"
-              value="Sign up"
+              className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
+              type="text"
+              id="username"
+              placeholder="Username"
+              onChange={handleChange}
             />
-          </form>
-          <p>Already have an account?</p>
-          <Link to="/signin">
+          </div>
+          <div className="relative flex items-center">
+            <MdDriveFileRenameOutline className="absolute left-1" />
             <input
-              className="w-full rounded-full py-2 text-blue-600 border border-blue-600 cursor-pointer"
-              type="button"
-              value="Sign in"
+              className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
+              type="text"
+              id="fullname"
+              placeholder="Fullname"
+              onChange={handleChange}
             />
-          </Link>
-        </div>
+          </div>
+          <div className="relative flex items-center">
+            <MdPassword className="absolute left-1" />
+            <input
+              className="py-2 px-6 rounded bg-transparent w-[280px] border border-gray-400 border-opacity-20"
+              type="password"
+              id="password"
+              placeholder="Password"
+              onChange={handleChange}
+            />
+          </div>
+          <input
+            className="py-2 rounded-full w-[280px] bg-blue-600 cursor-pointer"
+            type="submit"
+            value="Sign up"
+          />
+        </form>
+        <p>Already have an account?</p>
+        <Link to="/signin">
+          <input
+            className="w-full rounded-full py-2 text-blue-600 border border-blue-600 cursor-pointer"
+            type="button"
+            value="Sign in"
+          />
+        </Link>
       </div>
     </div>
   );

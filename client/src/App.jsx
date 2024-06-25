@@ -2,11 +2,12 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./components/Sidebar";
 import { useSelector } from "react-redux";
+import RightPanel from "./components/RightPanel";
 
 export default function App() {
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
+        <RightPanel />
         <ToastContainer
           position="bottom-center"
           autoClose={4000}

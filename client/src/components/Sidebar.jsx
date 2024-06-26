@@ -34,7 +34,7 @@ export default function Sidebar() {
           </li>
           <li className="flex justify-center lg:justify-start">
             <Link
-              to="/"
+              to="/notification"
               className="flex items-center gap-3 px-2 py-3 hover:bg-stone-900 transition-all rounded-full max-w-fit duration-300 cursor-pointer"
             >
               <IoNotifications className="w-8 h-8" />
@@ -43,7 +43,7 @@ export default function Sidebar() {
           </li>
           <li className="flex justify-center lg:justify-start">
             <Link
-              to="/"
+              to="/profile"
               className="flex items-center gap-3 px-2 py-3 hover:bg-stone-900 transition-all rounded-full max-w-fit duration-300 cursor-pointer"
             >
               <FaUser className="w-8 h-8" />

@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./components/Sidebar";
 import { useSelector } from "react-redux";
 import RightPanel from "./components/RightPanel";
+import Profile from "./pages/profile/Profile";
 
 export default function App() {
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <RightPanel />
         <ToastContainer

@@ -7,7 +7,7 @@ export default function Home() {
   const [feedType, setFeedType] = useState("forYou");
   return (
     <>
-      <div className="flex flex-col border-r border-gray-700 min-h-screen w-full">
+      <div className="flex flex-col border-r border-gray-700 min-h-screen w-full lg:w-[750px]">
         {/* Header */}
         <div className="flex w-full border-b border-gray-700">
           <div

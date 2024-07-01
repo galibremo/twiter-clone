@@ -15,7 +15,7 @@ import {
 const router = express.Router();
 
 router.post("/create", isAuthenticated, createPost);
-router.delete("/delete/:id", isAuthenticated, deletePost);
+router.delete("/delete/:postid", isAuthenticated, deletePost);
 router.get("/getposts", isAuthenticated, getAllPosts);
 router.get("/getpost/:postid", isAuthenticated, getSinglePost);
 router.get("/following", isAuthenticated, getFollowingPosts);

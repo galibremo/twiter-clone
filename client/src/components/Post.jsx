@@ -12,6 +12,7 @@ import CommentSection from "./CommentSection";
 export default function Post({
   post,
   onLike,
+  onDelete,
   setPosts,
   activePostId,
   onToggleComments,
@@ -20,8 +21,7 @@ export default function Post({
   const isLiked = post?.likes?.includes(currentUser._id);
   const isMyPost = currentUser._id === post?.user?._id;
   const showComments = activePostId === post._id;
-  
-  const handleDeletePost = () => {};
+
   return (
     <div className="p-4 border-b border-gray-700">
       <div className="flex justify-between gap-3">
@@ -82,7 +82,7 @@ export default function Post({
           <span className="flex justify-end">
             <FaTrash
               className="cursor-pointer hover:text-red-500"
-              onClick={handleDeletePost}
+              onClick={() => onDelete(post?._id)}
             />
           </span>
         )}

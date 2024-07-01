@@ -37,9 +37,9 @@ export const createPost = catchAsyncErrors(async (req, res, next) => {
 });
 export const deletePost = catchAsyncErrors(async (req, res, next) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.postid);
     if (!post) return next(errorHandler(404, "Post not found!"));
-    if (post.user !== req.user.id) {
+    if (post.user.toString() !== req.user.id) {
       return next(
         errorHandler(404, "Your are not authorize to delete this post!")
       );
@@ -48,7 +48,7 @@ export const deletePost = catchAsyncErrors(async (req, res, next) => {
       const imgId = post.img.split("/").pop().split(".")[0];
       await cloudinary.uploader.destroy(imgId);
     }
-    await Post.findByIdAndDelete(req.params.id);
+    await Post.findByIdAndDelete(req.params.postid);
 
     res.status(200).json({
       success: true,

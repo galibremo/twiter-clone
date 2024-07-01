@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
+import { toast } from "react-toastify";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -39,6 +40,21 @@ export default function Posts() {
     setActivePostId((prevPostId) => (prevPostId === postId ? null : postId));
   };
 
+  const handleDeletePost = async (postId) => {
+    try {
+      const { data } = await axios.delete(`/api/post/delete/${postId}`);
+      if (data.success === true) {
+        setPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== postId)
+        );
+        toast.success(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.error(error.message);
+    }
+  };
+
   return (
     <div>
       {posts?.length === 0 && (
@@ -54,6 +70,7 @@ export default function Posts() {
               setPosts={setPosts}
               activePostId={activePostId}
               onToggleComments={handleToggleComments}
+              onDelete={handleDeletePost}
             />
           ))}
         </div>

@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
-        <RightPanel />
+        {isAuthenticated && <RightPanel />}
         <ToastContainer
           position="bottom-center"
           autoClose={4000}

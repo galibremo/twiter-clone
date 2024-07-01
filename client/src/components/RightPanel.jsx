@@ -23,7 +23,7 @@ export default function RightPanel() {
       }
     };
     fetchUser();
-  }, [currentUser._id]);
+  }, [currentUser?._id]);
 
   if (suggestedUsers?.length === 0) return <div className="lg:w-64 w-0"></div>;
 

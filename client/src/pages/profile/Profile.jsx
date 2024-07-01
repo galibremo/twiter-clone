@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
-  return <div>Profile</div>;
+  const { currentUser } = useSelector((state) => state.user);
+  return (
+    <div className="flex flex-col border-r border-gray-700 min-h-screen w-full lg:w-[750px]">
+      Profile
+    </div>
+  );
 }

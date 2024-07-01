@@ -13,3 +13,33 @@ body {
   background-color: black;
   color: white;
 }
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.5);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-button {
+  background-size: 170%;
+  height: 10px;
+  width: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("up.svg");
+}
+
+body::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("down.svg");
+}

@@ -31,8 +31,6 @@ export default function Home() {
             )}
           </div>
         </div>
-
-        {/*  CREATE POST INPUT */}
         <CreatePost />
 
         {/* POSTS */}

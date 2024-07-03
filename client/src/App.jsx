@@ -9,6 +9,7 @@ import Sidebar from "./components/Sidebar";
 import { useSelector } from "react-redux";
 import RightPanel from "./components/RightPanel";
 import Profile from "./pages/profile/Profile";
+import NotificationPage from "./pages/notifications/NotificationPage";
 
 export default function App() {
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/notification" element={<NotificationPage />} />
         </Routes>
         {isAuthenticated && <RightPanel />}
         <ToastContainer

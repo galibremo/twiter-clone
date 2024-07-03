@@ -4,12 +4,14 @@ import { errorHandler } from "../utils/ErrorHandler.js";
 
 export const getNotifications = catchAsyncErrors(async (req, res, next) => {
   try {
-    const notifications = await Notification.find({ to: req.user.id }).populate(
-      {
+    const { limit } = req.query;
+    const notifications = await Notification.find({ to: req.user.id })
+      .populate({
         path: "from",
         select: "username profileImg",
-      }
-    );
+      })
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit));
 
     await Notification.updateMany({ to: req.user.id }, { read: true });
 

@@ -226,13 +226,21 @@ export const likeUnlikePost = catchAsyncErrors(async (req, res, next) => {
       updatedPost = await Post.findOneAndUpdate(
         { _id: req.params.postid },
         { $push: { likes: req.user.id } },
-        { new: true } // Return the modified document
+        { new: true }
       );
 
       await User.updateOne(
         { _id: req.user.id },
         { $push: { likedPosts: req.params.postid } }
       );
+      if (post.user.toString() !== req.user.id) {
+        const notification = new Notification({
+          from: req.user.id,
+          to: post.user,
+          type: "like",
+        });
+        await notification.save();
+      }
 
       res.status(200).json({
         success: true,

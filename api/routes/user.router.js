@@ -14,6 +14,6 @@ router.get("/profile/:username", isAuthenticated, getUserProfile);
 router.post("/signout", signOut);
 router.post("/follow/:id", isAuthenticated, followUnfollowUser);
 router.get("/suggested", isAuthenticated, getSuggestedusers);
-router.post("/update/:id", isAuthenticated, updateUser);
+router.put("/update/:id", isAuthenticated, updateUser);
 
 export default router;

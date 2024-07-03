@@ -43,7 +43,7 @@ export default function Sidebar() {
           </li>
           <li className="flex justify-center lg:justify-start">
             <Link
-              to="/profile"
+              to={`/profile/${currentUser.username}`}
               className="flex items-center gap-3 px-2 py-3 hover:bg-stone-900 transition-all rounded-full max-w-fit duration-300 cursor-pointer"
             >
               <FaUser className="w-8 h-8" />

@@ -25,8 +25,6 @@ export default function NotificationPage() {
     fetchNotification();
   }, [currentUser._id]);
 
-  console.log(getNotifi);
-
   return (
     <div className="flex flex-col border-r border-gray-700 min-h-screen w-full lg:w-[750px]">
       <div className="flex justify-between items-center p-4 border-b border-gray-700">

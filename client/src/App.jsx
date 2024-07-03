@@ -22,7 +22,10 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path={`/profile/${currentUser.username}`}
+            element={<Profile />}
+          />
           <Route path="/notification" element={<NotificationPage />} />
         </Routes>
         {isAuthenticated && <RightPanel />}

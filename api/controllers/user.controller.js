@@ -2,6 +2,7 @@ import catchAsynsError from "../middleware/catchAsynsError.js";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/ErrorHandler.js";
 import Notification from "../models/notification.model.js";
+import { v2 as cloudinary } from "cloudinary";
 
 export const getUserProfile = catchAsynsError(async (req, res, next) => {
   const { username } = req.params;
@@ -119,7 +120,7 @@ export const updateUser = catchAsynsError(async (req, res, next) => {
       { new: true }
     );
 
-    res.status(200).json(updatedUser);
+    res.status(200).json({ success: true, updatedUser });
   } catch (error) {
     next(error);
   }
